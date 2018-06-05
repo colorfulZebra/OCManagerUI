@@ -83,6 +83,15 @@ angular.module('basic')
           });
         }
       });
+      let refreshtenant = function (page) {
+        let skip = (page - 1) * $scope.grid.tenantsize;
+        if ($scope.childrens.length) {
+          $scope.childrensitem = $scope.childrens.slice(skip, skip + $scope.grid.tenantsize);
+        } else {
+          $scope.childrensitem = [];
+        }
+        $(window).scrollTop(0);
+      };
       let refresh = function (page) {
         let skip = (page - 1) * $scope.grid.bsisize;
         if ($scope.bsis.length) {
@@ -101,6 +110,11 @@ angular.module('basic')
         }
         $(window).scrollTop(0);
       };
+      $scope.$watch('grid.tenantpage', function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+          refreshtenant(newVal);
+        }
+      });
       $scope.$watch('grid.bsipage', function (newVal, oldVal) {
         if (newVal !== oldVal) {
           refresh(newVal);
@@ -180,6 +194,8 @@ angular.module('basic')
         $scope.childrens = [];
         tenantchild.query({name: Cookie.get("username"), id: id}, function (childrens) {
           $scope.childrens = childrens;
+          $scope.grid.tenanttotal = $scope.childrens.length;
+          refreshtenant(1);
         });
       };
       $scope.grid = {
@@ -189,6 +205,9 @@ angular.module('basic')
         bsipage: 1,
         bsisize: 10,
         bsitotal: 0,
+        tenantpage: 1,
+        tenantsize: 8,
+        tenanttotal: 0,
         showCompany: true, showProject: false, showChildnode: false, showbsi: false,
         roleTitle: tree[0] ? tree[0].name : '',
         treeId: '',
