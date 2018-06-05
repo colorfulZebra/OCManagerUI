@@ -110,6 +110,19 @@ angular.module('basic')
         }
         $(window).scrollTop(0);
       };
+      let refreshbslimit = function (page) {
+        let skip = (page - 1) * $scope.grid.bslimitsize;
+        $scope.bsLimititem = {};
+        if (Object.keys($scope.bsLimit).length) {
+          let curkeys = Object.keys($scope.bsLimit).slice(skip, skip + $scope.grid.bslimitsize);
+          for (let k of curkeys) {
+            $scope.bsLimititem[k] = $scope.bsLimit[k];
+          }
+        } else {
+          $scope.bsLimititem = {};
+        }
+        $(window).scrollTop(0);
+      };
       $scope.$watch('grid.tenantpage', function (newVal, oldVal) {
         if (newVal !== oldVal) {
           refreshtenant(newVal);
@@ -123,6 +136,11 @@ angular.module('basic')
       $scope.$watch('grid.userpage', function (newVal, oldVal) {
         if (newVal !== oldVal) {
           refreshuser(newVal);
+        }
+      });
+      $scope.$watch('grid.bslimitpage', function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+          refreshbslimit(newVal);
         }
       });
       user.query(function (data) {
@@ -208,6 +226,9 @@ angular.module('basic')
         tenantpage: 1,
         tenantsize: 8,
         tenanttotal: 0,
+        bslimitpage: 1,
+        bslimitsize: 10,
+        bslimittotal: 0,
         showCompany: true, showProject: false, showChildnode: false, showbsi: false,
         roleTitle: tree[0] ? tree[0].name : '',
         treeId: '',
@@ -540,6 +561,8 @@ angular.module('basic')
               }
             }
           }
+          $scope.grid.bslimittotal = Object.keys($scope.bsLimit).length;
+          refreshbslimit(1);
         });
         Cookie.set('tenantId', node.id, 24 * 3600 * 1000);
         $scope.grid.roleTitle = node.name;

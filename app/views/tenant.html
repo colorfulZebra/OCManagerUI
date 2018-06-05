@@ -33,7 +33,7 @@
                 </div>
               </div>
             </div>
-            <div class="page-style">
+            <div class="page-style" ng-if="grid.tenanttotal > 8">
               <uib-pagination ng-model="grid.tenantpage" total-items="grid.tenanttotal" items-per-page="grid.tenantsize" class="pagination-sm" boundary-links="true" max-size="6" rotate="true" previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页">
               </uib-pagination>
             </div>
@@ -200,7 +200,7 @@
             <div class="user-authorize">
               <!--<span ng-click="addBsLimit()">添加服务限定</span>-->
             </div>
-            <div class="resource-wrop" ng-repeat="(timeIndex,item) in bsLimit">
+            <div class="resource-wrop" ng-repeat="(timeIndex,item) in bsLimititem">
               <div>
                 <div class="row resource-top">
                   <div class="col-md-10"
@@ -229,6 +229,10 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="page-style" ng-if="grid.bslimittotal > 10">
+              <uib-pagination ng-model="grid.bslimitpage" total-items="grid.bslimittotal" items-per-page="grid.bslimitsize" class="pagination-sm" boundary-links="true" max-size="6" rotate="true" previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页">
+              </uib-pagination>
             </div>
           </li>
           <li ng-show="isrold">
