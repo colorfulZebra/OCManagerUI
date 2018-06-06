@@ -221,7 +221,7 @@
                         <div class="col-md-2" style="width:20%" uib-tooltip="{{fieldsHelper[bs.key]}}">{{bs.key}}</div>
                         <div class="col-md-10" style="width:80%">
                           <div class="use-num-wrop">
-                            <input class="no-monetary" ng-model="bs.val" type="text" ng-disabled="!item.zt.isde">
+                            <input class="no-monetary" ng-model="bs.val" type="text" ng-disabled="!item.zt.isde" onkeypress="if((event.keyCode > 31 && event.keyCode < 44) || (event.keyCode > 46 && event.keyCode < 48) || (event.keyCode > 57 && event.keyCode < 65) || (event.keyCode > 90 && event.keyCode < 97))event.returnValue = false;">
                           </div>
                         </div>
                       </div>
