@@ -772,7 +772,7 @@ angular.module('basic.services', ['ngResource', 'ui.bootstrap', 'ui.bootstrap.da
                 let elem = {"name": key, "value": initCustomize[key].default.toString(), "customizeValue": initCustomize[key]};
                 $scope.planCustomizes.push(elem);
               }
-
+              // console.log($scope.data[$scope.svActive]);
             };
             $scope.checkServeName = function () {
               if (existed_bsis.includes($scope.bsiname)) {
