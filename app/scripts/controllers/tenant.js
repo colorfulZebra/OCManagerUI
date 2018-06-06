@@ -567,6 +567,9 @@ angular.module('basic')
         Cookie.set('tenantId', node.id, 24 * 3600 * 1000);
         $scope.grid.roleTitle = node.name;
         $scope.nodeIf = node;
+        if ($scope.nodeIf.dueTime) {
+          $scope.nodeIf.dueTimeShow = $scope.nodeIf.dueTime.split('.')[0];
+        }
         $scope.nodeId = node.id;
         $scope.newServeArr = [];
         $scope.sletr = [];
