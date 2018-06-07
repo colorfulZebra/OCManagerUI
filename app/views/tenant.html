@@ -23,6 +23,7 @@
           <li ng-click="changeCon()"><span>用户列表</span></li>
         </ul>
         <ol class="right-content">
+          <!-- 子租户列表 -->
           <li class="showcon">
             <div class="user-authorize"><span ng-click="addTenant()">添加子租户</span></div>
             <div class="row project-list">
@@ -38,6 +39,7 @@
               </uib-pagination>
             </div>
           </li>
+          <!-- 项目户列表 -->
           <li>
             <div class="user-authorize"><span ng-click="addTenant()">添加子租户</span></div>
             <div class="row project-list">
@@ -49,6 +51,7 @@
               </div>
             </div>
           </li>
+          <!-- 基本信息 -->
           <li>
             <ul class="basic_block">
               <li>
@@ -65,6 +68,7 @@
               </li>
             </ul>
           </li>
+          <!-- 服务列表 -->
           <li ng-show="bsis.length">
             <ul class="tenant-serve-list">
               <li class="row" ng-repeat="bsi in bsisitem">
@@ -97,6 +101,7 @@
               </uib-pagination>
             </div>
           </li>
+          <!-- 资源管理 -->
           <li>
             <!--资源管理资源管理资源管理-->
             <div class="user-authorize" ng-click="addServe()"><span>添加服务</span></div>
@@ -159,28 +164,29 @@
             </div>
             <!--资源管理资源管理资源管理-->
           </li>
+          <!-- 资源报告 -->
           <li>
             <div class="resource-wrop" ng-repeat="(timeIndex,item) in newServeArrs">
               <div>
                 <div class="row resource-top">
-                  <div class="col-md-10">
+                  <div class="col-md-10" style="text-align: left;font-size: 16px;text-overflow:ellipsis;overflow: hidden;white-space: nowrap;padding:0;">
+                    <span ng-class="{'rotate':!item.isshow, 'check-btn': item.isshow}"
+                          ng-click="toggleServe($index)" style="float: left;margin-right:10px;"></span>
                     {{item.serviceName}}
                   </div>
                   <div class="col-md-2" style="text-align: right;font-size: 16px;">
-                    <span ng-class="{'rotate':!item.isshow, 'check-btn': item.isshow}"
-                          ng-click="toggleServe($index)"></span>
                   </div>
                 </div>
                 <div class="resource-list" ng-repeat="arr in item.servesList" ng-if="item.isshow">
                   <div>
                     <div class="row resource-top">
                       <div class="col-md-10">
+                        <span ng-class="{'rotate':!arr.isshow, 'check-btn': arr.isshow}"
+                              ng-click="toggleServeList(timeIndex,$index,arr)" style="float: left;margin-right:10px;">
+                        </span>
                         {{arr.instanceName}}
                       </div>
                       <div class="col-md-2" style="text-align: right;">
-                        <span ng-class="{'rotate':!arr.isshow, 'check-btn': arr.isshow}"
-                              ng-click="toggleServeList(timeIndex,$index,arr)">
-                        </span>
                       </div>
                     </div>
                     <div class="list-con" ng-show="arr.isshow">
@@ -196,6 +202,7 @@
               </div>
             </div>
           </li>
+          <!-- 资源限定 -->
           <li>
             <div class="user-authorize">
               <!--<span ng-click="addBsLimit()">添加服务限定</span>-->
@@ -235,6 +242,7 @@
               </uib-pagination>
             </div>
           </li>
+          <!-- 用户列表 -->
           <li ng-show="isrold">
             <div class="user-authorize" ng-if="!ismember"><span ng-click="userAuthorize()">用户授权</span></div>
             <ul class="tenant-serve-list">
