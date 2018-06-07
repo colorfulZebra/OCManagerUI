@@ -479,11 +479,12 @@ angular.module('basic')
                     getdfbs.get(function (data) {
                       angular.forEach(data.items, function (bs) {
                         let planInfo = {};
+                        $scope.fieldsHelper[bs.spec.name.toLowerCase()] = {};
                         for(var idx=0; idx<bs.spec.plans.length; idx++){
                           if (!(_.isEmpty(bs.spec.plans[idx].metadata.customize))) {
                               angular.forEach(bs.spec.plans[idx].metadata.customize, function (ct, y) {
                                 planInfo[y] = ct.desc + " 单位: " + ((typeof(ct.unit)=== "undefined") ? "个" : ct.unit);
-                                $scope.fieldsHelper[y] = planInfo[y];
+                                $scope.fieldsHelper[bs.spec.name.toLowerCase()][y] = planInfo[y];
                               });
                           }
                         }

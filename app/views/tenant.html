@@ -144,8 +144,8 @@
                       <div class="row" ng-if="arr.ziyuan.length > 0">
                         <label>配额:</label>
                         <div class="row add-myserve" ng-repeat="ziyuan in arr.ziyuan">
-                          <div class="col-md-2" uib-tooltip={{ziyuan.tool}}>{{ziyuan.key}}</div>
-                          <div class="col-md-10">
+                          <div class="col-md-2" style="width: 20%;" uib-tooltip={{ziyuan.tool}}>{{ziyuan.key}}</div>
+                          <div class="col-md-10" style="width: 80%;">
                             <div class="use-num-wrop">
                               <input class="no-monetary" ng-model="ziyuan.value" type="text" ng-disabled="!arr.isde">
                             </div>
@@ -218,7 +218,7 @@
                   <div>
                     <div class="list-con">
                       <div class="row add-myserve" ng-repeat="bs in item">
-                        <div class="col-md-2" style="width:20%" uib-tooltip="{{fieldsHelper[bs.key]}}">{{bs.key}}</div>
+                        <div class="col-md-2" style="width:20%" uib-tooltip="{{fieldsHelper[timeIndex][bs.key]}}">{{bs.key}}</div>
                         <div class="col-md-10" style="width:80%">
                           <div class="use-num-wrop">
                             <input class="no-monetary" ng-model="bs.val" type="text" ng-disabled="!item.zt.isde" onkeypress="if((event.keyCode > 31 && event.keyCode < 44) || (event.keyCode > 46 && event.keyCode < 48) || (event.keyCode > 57 && event.keyCode < 65) || (event.keyCode > 90 && event.keyCode < 97))event.returnValue = false;">
