@@ -80,20 +80,30 @@ angular.module('basic.services', ['ngResource', 'ui.bootstrap', 'ui.bootstrap.da
         size: 'default',
         controller: ['$scope', '$uibModalInstance', 'deletetenantapi', function ($scope, $uibModalInstance, deletetenantapi) {
           $scope.con = '确认删除' + name;
+          $scope.btnStyle = {};
+          $scope.delinprocess = false;
           let closeConf = function () {
+            $scope.delinprocess = false;
+            $scope.btnStyle = {};
             $uibModalInstance.close();
           };
           $scope.cancel = function () {
             $uibModalInstance.dismiss();
           };
           $scope.ok = function () {
-            deletetenantapi.delete({id: id}, function () {
-              $scope.con = '删除成功';
-              window.setTimeout(closeConf, 1500);
-            }, function () {
-              $scope.con = '删除失败!';
-              window.setTimeout(closeConf, 2000);
-            });
+            if (!$scope.delinprocess) {
+              $scope.delinprocess = true;
+              $scope.btnStyle = {
+                'background-color': 'grey'
+              };
+              deletetenantapi.delete({id: id}, function () {
+                $scope.con = '删除成功';
+                window.setTimeout(closeConf, 1500);
+              }, function () {
+                $scope.con = '删除失败!';
+                window.setTimeout(closeConf, 3000);
+              });
+            }
           };
         }]
       }).result;
@@ -772,7 +782,6 @@ angular.module('basic.services', ['ngResource', 'ui.bootstrap', 'ui.bootstrap.da
                 let elem = {"name": key, "value": initCustomize[key].default.toString(), "customizeValue": initCustomize[key]};
                 $scope.planCustomizes.push(elem);
               }
-              // console.log($scope.data[$scope.svActive]);
             };
             $scope.checkServeName = function () {
               if (existed_bsis.includes($scope.bsiname)) {
@@ -951,13 +960,27 @@ angular.module('basic.services', ['ngResource', 'ui.bootstrap', 'ui.bootstrap.da
         size: 'default',
         controller: ['$scope', '$uibModalInstance', 'deletebsi', function ($scope, $uibModalInstance, deletebsi) {
           $scope.title = title;
+          $scope.disableBtn = false;
+          $scope.btnStyle = {};
           $scope.cancel = function () {
             $uibModalInstance.dismiss();
           };
           $scope.ok = function () {
-            deletebsi.delete({id: nodeId, name: title}, function (res) {
-              $uibModalInstance.close(res);
-            });
+            if (!$scope.disableBtn) {
+              $scope.disableBtn = true;
+              $scope.btnStyle = {
+                'background-color': 'grey'
+              };
+              deletebsi.delete({id: nodeId, name: title}, function (res) {
+                $uibModalInstance.close(res);
+                $scope.disableBtn = false;
+                $scope.btnStyle = {};
+              }, (err) => {
+                console.log(err);
+                $scope.disableBtn = false;
+                $scope.btnStyle = {};
+              });
+            }
           };
         }]
       }).result;
