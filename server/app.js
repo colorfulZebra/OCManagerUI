@@ -9,6 +9,7 @@ import proxy from 'http-proxy-middleware';
 import cors from 'cors';
 
 let app = express();
+app.use(cors());
 let env = config.env || 'dev';
 
 if (env === 'dev') {
@@ -20,10 +21,10 @@ if (env === 'dev') {
   console.log('ADAPTER_API_SERVER', process.env.ADAPTER_API_SERVER);
   console.log('SVCAMOUNT_API_SERVER', process.env.SVCAMOUNT_API_SERVER);
 
-app.use('/ocmanager', cors(), proxy({target: process.env.ADAPTER_API_SERVER, changeOrigin: true}));
+app.use('/ocmanager', proxy({target: process.env.ADAPTER_API_SERVER, changeOrigin: true}));
 //app.use('/ocmanager', proxy({target: 'http://10.1.236.113:9090', changeOrigin: true}));
 //app.use('/oapi/', proxy({target: 'https://10.1.130.134:8443', changeOrigin: true, secure: false}));
-app.use('/sapi/', cors(), proxy({target: process.env.SVCAMOUNT_API_SERVER, changeOrigin: true}));
+app.use('/sapi/', proxy({target: process.env.SVCAMOUNT_API_SERVER, changeOrigin: true}));
 
 app.use(express.static(config[env].dist));
 app.use(favicon(path.join(__dirname, '../', config[env].dist, '/favicon.ico')));
