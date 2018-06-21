@@ -7,9 +7,14 @@ import path from 'path';
 import favicon from 'serve-favicon';
 import proxy from 'http-proxy-middleware';
 import cors from 'cors';
+import morgan from 'morgan';
 
 let app = express();
-app.use(cors());
+app.use(morgan('short'));
+app.use(cors({
+  credentials: true,
+  origin: 'http://localhost:8080'
+}));
 let env = config.env || 'dev';
 
 if (env === 'dev') {
